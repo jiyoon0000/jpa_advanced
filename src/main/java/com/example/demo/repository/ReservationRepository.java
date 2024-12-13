@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Reservation;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +29,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("startAt") LocalDateTime startAt,
             @Param("endAt") LocalDateTime endAt
     );
+
+    @EntityGraph(attributePaths = {"user", "item"})
+    List<Reservation> findAll();
 }

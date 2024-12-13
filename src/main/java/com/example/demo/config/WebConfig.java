@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
+    //AdminRoleInterceptor 설정 -> admins 경로에 대해 ADMIN 권한 확인
     // TODO: 2. 인가에 대한 이해
     private static final String[] AUTH_REQUIRED_PATH_PATTERNS = {"/users/logout", "/items/*"};
     private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/reservations/*"};
@@ -38,6 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS)
                 .order(Ordered.HIGHEST_PRECEDENCE + 2);
 
+        //관리자 권한이 필요한 경로에 대해 높은 우선순위 설정
         registry.addInterceptor(adminRoleInterceptor)
                 .addPathPatterns(ADMIN_ROLE_REQUIRED_PATH_PATTERNS)
                 .order(Ordered.HIGHEST_PRECEDENCE + 3);

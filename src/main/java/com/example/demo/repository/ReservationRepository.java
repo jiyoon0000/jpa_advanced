@@ -30,6 +30,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("endAt") LocalDateTime endAt
     );
 
+    //FetchJoin을 사용하여 N+1문제를 해결
+    //예약과 관련된 User와 Item 데이터를 한번에 가져옴
     @EntityGraph(attributePaths = {"user", "item"})
     List<Reservation> findAll();
 }

@@ -47,10 +47,14 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+//Java 컴파일러에 대한 설정 정의
+//어노테이션 프로세서를 통해 소스파일 출력 디렉토리를 지정
 tasks.withType(JavaCompile).configureEach {
     options.generatedSourceOutputDirectory.set(layout.buildDirectory.dir("generated/sources/annotationProcessor/java/main"))
 }
 
+//소스 디렉토리 경로에 어노테이션 프로세서를 통해 생성된 Q클래스 디렉토리를 추가
+//Gradle이 해당 디렉토리를 프로젝트의 소스 경로로 인식하여 Q클래스를 사용할 수 있게 설정
 sourceSets {
     main {
         java {

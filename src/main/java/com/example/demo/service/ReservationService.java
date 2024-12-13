@@ -21,8 +21,9 @@ public class ReservationService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final RentalLogService rentalLogService;
-    private final JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;//QueryDsl 활용
 
+    //의존성을 위한 생성자 정의
     public ReservationService(ReservationRepository reservationRepository,
                               ItemRepository itemRepository,
                               UserRepository userRepository,
@@ -74,16 +75,22 @@ public class ReservationService {
     // TODO: 5. QueryDSL 검색 개선
     public List<ReservationResponseDto> searchAndConvertReservations(Long userId, Long itemId) {
 
+        //userId와 itemId 조건에 따라 동적으로 검색
         List<Reservation> reservations = searchReservations(userId, itemId);
 
+        //조회된 엔티티를 Dto로 변환하여 반환
         return convertToDto(reservations);
     }
 
+    //QueryDSL을 사용한 동적 쿼리
     public List<Reservation> searchReservations(Long userId, Long itemId){
+        //QueryDSL에서 사용할 Q클래스 정의
         QReservation reservation = QReservation.reservation;
         QUser user = QUser.user;
         QItem item = QItem.item;
 
+        //QueryDSL을 사용하여 동적 조건을 추가
+        //fetchJoin을 활용해 N+1문제를 방지하고 연관된 데이터를 한번에 가져옴
         return queryFactory
                 .selectFrom(reservation)
                 .leftJoin(reservation.user, user).fetchJoin()

@@ -14,6 +14,10 @@ import java.util.Optional;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
+    default Reservation findByIdOrThrow(Long id){
+        return findById(id).orElseThrow(() -> new IllegalArgumentException("해당 Reservation Id가 존재하지 않습니다."));
+    }
+
     List<Reservation> findByUserIdAndItemId(Long userId, Long itemId);
 
     List<Reservation> findByUserId(Long userId);

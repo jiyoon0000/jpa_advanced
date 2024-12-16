@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'at.favre.lib:bcrypt:0.10.2'
@@ -41,6 +42,10 @@ dependencies {
     // lombok
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+
+    //test할 때 필요한 의존성
+    implementation 'at.favre.lib:bcrypt:0.10.2' // BCrypt 라이브러리
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3' // JUnit5
 }
 
 tasks.named('test') {
@@ -62,3 +67,12 @@ sourceSets {
         }
     }
 }
+
+sourceSets {
+    test {
+        resources {
+            srcDirs = ["src/test/resources"]
+        }
+    }
+}
+

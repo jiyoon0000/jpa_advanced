@@ -2,11 +2,13 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 
 @Entity
 @Getter
+@NoArgsConstructor
 @DynamicInsert //DynamicInsert를 사용하여 null인 필드는 제외되고 DB의 기본값이 적용됨
 // TODO: 6. Dynamic Insert
 public class Item {
@@ -39,5 +41,7 @@ public class Item {
         this.owner = owner;
     }
 
-    public Item() {}
+    public void setStatus(String status){
+        this.status = status;
+    }
 }

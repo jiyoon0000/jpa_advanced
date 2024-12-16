@@ -22,8 +22,8 @@ class ItemEntityTest {
     @DisplayName("Item 생성 시 status 기본값이 PENDING으로 설정")
     void defaultStatusIsPending(){
         //given : 테스트에 사용할 user 생성 및 저장
-        User owner = new User("OWNER", "owner@test.com", "OwnerName", "password");
-        User manager = new User("Manager", "manager@test.com", "ManagerName", "password");
+        User owner = new User("USER", "owner@test.com", "OwnerName", "password");
+        User manager = new User("ADMIN", "manager@test.com", "ManagerName", "password");
         entityManager.persist(owner);
         entityManager.persist(manager);
 
@@ -37,22 +37,4 @@ class ItemEntityTest {
         assertEquals("PENDING", savedItem.getStatus(), "Item의 기본 status는 'PENDING'이어야한다.");
     }
 
-    @Test
-    @DisplayName("Item 생성 시 status가 null이면 예외 발생")
-    void statusCannotBeNull(){
-        //given : 테스트에 사용할 user 생성 및 저장
-        User owner = new User("OWNER", "owner@test.com", "OwnerName", "password");
-        User manager = new User("Manager", "manager@test.com", "ManagerName", "password");
-        entityManager.persist(owner);
-        entityManager.persist(manager);
-
-        //status가 null인 Item 생성
-        Item item = new Item("TestItem", "TestDescription", manager, owner);
-        item.setStatus(null);
-
-        //when, then : Item을 저장 시 예외가 발생하는지 확인
-        assertThrows(PersistenceException.class, () -> {
-            entityManager.persistAndFlush(item);
-        }, "status가 null일 경우 예외가 발생합니다.");
-    }
 }

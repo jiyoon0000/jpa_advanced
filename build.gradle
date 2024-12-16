@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'jacoco'
 }
 
 group = 'com.sparta'
@@ -12,6 +13,36 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+jacoco {
+    toolVersion = "0.8.10" // 최신 JaCoCo 버전을 명시적으로 설정
+}
+
+jacocoTestReport {
+    reports {
+        html.required.set(true) // HTML 리포트 활성화
+        xml.required.set(true)  // XML 리포트 활성화
+        csv.required.set(false) // CSV 리포트 비활성화
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 0.60 // 커버리지 기준 설정 (60%)
+            }
+        }
+    }
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // 테스트가 끝난 후 리포트를 생성
+}
+
 
 configurations {
     compileOnly {

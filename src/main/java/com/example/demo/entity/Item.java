@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -31,8 +32,16 @@ public class Item {
     private User manager;
 
     //status가 null일 경우, INSERT SQL에서 제외되고, DB 기본값 PENDING이 적용
-    @Column(nullable = false, columnDefinition = "varchar(20) default 'PENDING'")
-    private String status;
+    @Column(nullable = false)
+    @NotNull
+    private String status = "PENDING";
+
+    @PrePersist
+    private void setDefaultStatus(){
+        if(this.status == null){
+            this.status = "PENDING";
+        }
+    }
 
     public Item(String name, String description, User manager, User owner) {
         this.name = name;

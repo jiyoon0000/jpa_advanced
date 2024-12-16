@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ItemRequestDto;
 import com.example.demo.service.ItemService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,11 @@ public class ItemController {
     }
 
     @PostMapping
-    public void createItem(@RequestBody ItemRequestDto itemRequestDto) {
+    public ResponseEntity<String> createItem(@RequestBody ItemRequestDto itemRequestDto) {
          itemService.createItem(itemRequestDto.getName(),
                                 itemRequestDto.getDescription(),
                                 itemRequestDto.getOwnerId(),
                                 itemRequestDto.getManagerId());
+         return ResponseEntity.ok("아이템이 성공적으로 생성되었습니다.");
     }
 }

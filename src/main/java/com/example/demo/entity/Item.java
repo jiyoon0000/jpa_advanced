@@ -33,11 +33,10 @@ public class Item {
 
     //status가 null일 경우, INSERT SQL에서 제외되고, DB 기본값 PENDING이 적용
     @Column(nullable = false)
-    @NotNull
-    private String status = "PENDING";
+    private String status;
 
     @PrePersist
-    private void setDefaultStatus(){
+    public void setDefaultStatus(){
         if(this.status == null){
             this.status = "PENDING";
         }
@@ -53,4 +52,5 @@ public class Item {
     public void setStatus(String status){
         this.status = status;
     }
+
 }

@@ -126,7 +126,8 @@ public class ReservationService {
     // TODO: 7. 리팩토링
     @Transactional
     public Reservation updateReservationStatus(Long reservationId, String status) {
-        Reservation reservation = reservationRepository.findByIdOrThrow(reservationId);
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 예약 ID가 존재하지 않습니다."));
 
         ReservationStatus newStatus = ReservationStatus.valueOf(status.toUpperCase());
         reservation.updateStatus(newStatus);

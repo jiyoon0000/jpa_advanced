@@ -1,4 +1,4 @@
-package com.example.demo.unit;
+package com.example.demo.unit.serviceTest;
 
 import com.example.demo.dto.ReservationResponseDto;
 import com.example.demo.entity.Item;

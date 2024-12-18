@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.unit;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.junit.jupiter.api.DisplayName;

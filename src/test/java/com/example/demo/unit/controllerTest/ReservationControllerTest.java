@@ -1,4 +1,4 @@
-package com.example.demo.unit;
+package com.example.demo.unit.controllerTest;
 
 import com.example.demo.config.WebConfig;
 import com.example.demo.controller.ReservationController;

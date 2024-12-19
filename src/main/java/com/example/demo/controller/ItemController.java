@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ItemRequestDto;
 import com.example.demo.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createItem(@RequestBody ItemRequestDto itemRequestDto) {
+    public ResponseEntity<String> createItem(@Valid @RequestBody ItemRequestDto itemRequestDto) {
          itemService.createItem(itemRequestDto.getName(),
                                 itemRequestDto.getDescription(),
                                 itemRequestDto.getOwnerId(),

@@ -1,13 +1,22 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.User;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 public class UserRequestDto {
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String nickname;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String role;
 
     public UserRequestDto(String role, String email, String nickname, String password) {

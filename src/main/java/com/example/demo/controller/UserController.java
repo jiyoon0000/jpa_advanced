@@ -7,6 +7,7 @@ import com.example.demo.dto.UserRequestDto;
 import com.example.demo.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> signupWithEmail(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<String> signupWithEmail(@Valid @RequestBody UserRequestDto userRequestDto) {
         userService.signupWithEmail(userRequestDto);
         return ResponseEntity.ok("성공적으로 회원가입되었습니다.");
     }

@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.Generated;
 import lombok.Getter;
 
 @Entity
@@ -19,6 +20,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;
 
+    @Generated
     public User(String role, String email, String nickname, String password) {
         this.role = Role.of(role);
         this.email = email;

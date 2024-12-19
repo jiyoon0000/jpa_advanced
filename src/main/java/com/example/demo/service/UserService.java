@@ -22,6 +22,11 @@ public class UserService {
 
     @Transactional
     public void signupWithEmail(UserRequestDto userRequestDto) {
+        // 이메일 중복 검사
+        if (userRepository.findByEmail(userRequestDto.getEmail()) != null) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+
         String encodedPassword = PasswordEncoder.encode(userRequestDto.getPassword());
         userRequestDto.updatePassword(encodedPassword);
 

@@ -46,12 +46,16 @@ class ItemEntityUnitTest {
         //given
         User owner = new User("USER", "owner@test.com", "OwnerName", "password123");
         User manager = new User("ADMIN", "manager@test.com", "ManagerName", "password123");
-        Item item = new Item("TestItem", "TestDescription", manager, owner);
+        Item item = new Item("TestItem", "TestDescription", owner, manager);
 
         //then
         assertThat(item.getName()).isEqualTo("TestItem");
         assertThat(item.getDescription()).isEqualTo("TestDescription");
-        assertThat(item.getOwner()).isEqualTo(owner);
-        assertThat(item.getManager()).isEqualTo(manager);
+
+        assertThat(item.getOwner().getEmail()).isEqualTo("owner@test.com");
+        assertThat(item.getOwner().getNickname()).isEqualTo("OwnerName");
+
+        assertThat(item.getManager().getEmail()).isEqualTo("manager@test.com");
+        assertThat(item.getManager().getNickname()).isEqualTo("ManagerName");
     }
 }

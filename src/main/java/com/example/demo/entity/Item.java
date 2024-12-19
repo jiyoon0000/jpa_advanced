@@ -42,11 +42,11 @@ public class Item {
         }
     }
 
-    public Item(String name, String description, User manager, User owner) {
+    public Item(String name, String description, User owner, User manager) {
         this.name = name;
         this.description = description;
-        this.manager = manager;
         this.owner = owner;
+        this.manager = manager;
     }
 
     public void setStatus(String status){

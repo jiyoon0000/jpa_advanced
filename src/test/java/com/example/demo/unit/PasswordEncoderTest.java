@@ -1,6 +1,7 @@
 package com.example.demo.unit;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.example.demo.util.PasswordEncoder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class PasswordEncoderTest {
 
         //when : BCrypt를 사용하여 비밀번호 암호화
         //hashToString(int cost, char[] password) : 비밀번호를 BCrypt로 암호화하여 문자열 형식으로 반환
-        String encodedPassword = BCrypt.withDefaults().hashToString(12, rawPassword.toCharArray());
+        String encodedPassword = PasswordEncoder.encode(rawPassword);
 
         //then : 암호화됨 비밀번호가 null이 아님을 확인한 후, 원본 비밀번호와 다름을 확인
         assertNotNull(encodedPassword);
@@ -28,13 +29,13 @@ class PasswordEncoderTest {
     void passwordMatch(){
         //given : 원본 비밀번호와 암호화된 비밀번호 생성
         String rawPassword = "testPassword123";
-        String encodedPassword = BCrypt.withDefaults().hashToString(12,rawPassword.toCharArray());
+        String encodedPassword = PasswordEncoder.encode(rawPassword);
 
-        //when : BCrypt를 사용하여 원본 비밀번호가 암호화된 비밀번호와 일치하는지 검증
-        BCrypt.Result result = BCrypt.verifyer().verify(rawPassword.toCharArray(),encodedPassword);
+        //when
+        boolean matches = PasswordEncoder.matches(rawPassword,encodedPassword);
 
         //then : 비밀번호가 올바르게 검증되었는지 확인
-        assertTrue(result.verified);
+        assertTrue(matches);
     }
 
     @Test
@@ -42,13 +43,13 @@ class PasswordEncoderTest {
     void passwordNotMatch(){
         //given : 원본 비밀번호와 암호화된 비밀번호 생성
         String rawPassword = "testPassword123";
-        String encodedPassword = BCrypt.withDefaults().hashToString(12, rawPassword.toCharArray());
+        String encodedPassword = PasswordEncoder.encode(rawPassword);
 
         //when : BCrypt를 사용하여 원본 비밀번호가 암호화된 비밀번호와 일치하는지 검증
-        BCrypt.Result result = BCrypt.verifyer().verify("wrongPassword".toCharArray(), encodedPassword);
+        boolean matches = PasswordEncoder.matches("wrongPassword",encodedPassword);
 
         //then : 잘못된 비밀번호가 검증에 실패했는지 확인
-        assertFalse(result.verified);
+        assertFalse(matches);
     }
 
 }

@@ -16,6 +16,7 @@ class ItemEntityTest {
 
     @Autowired
     private TestEntityManager entityManager;
+
     @Autowired
     private ItemRepository itemRepository;
 

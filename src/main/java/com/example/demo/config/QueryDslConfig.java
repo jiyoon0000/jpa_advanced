@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QueryDslConfig {
 
+    //풀리퀘스트 테스트
     @PersistenceContext
     private EntityManager entityManager;
 
